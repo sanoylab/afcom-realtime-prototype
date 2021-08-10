@@ -29,11 +29,12 @@ const populateGraph = async (hostId, schoolName) => {
   const data = await getData();
 
   const filtered = data.filter((d) => d.hostId == hostId);
-
+  const sorted = filtered.sort(sortByProperty("createdAt"));
+  sorted.length = 30;
   let bitReceived = [];
   let bitSent = [];
   let label = [];
-  filtered.forEach((school) => {
+  sorted.forEach((school) => {
     label.push(
       new Date(school.createdAt).toDateString() +
         " (" +
@@ -83,6 +84,7 @@ const populateTable = async (hostId) => {
 
   const filtered = data.filter((d) => d.hostId == hostId);
   const sorted = filtered.sort(sortByProperty("createdAt"));
+  sorted.length = 30;
   sorted.forEach((school) => {
     content += `<tr><td>${
       new Date(school.createdAt).toDateString() +
